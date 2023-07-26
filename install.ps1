@@ -26,11 +26,18 @@ Write-Host "Help yourself to download neovide and nvim"
 # copy init.lua file
 if($IsWindows){
 	Create-Dir -dir "$HOME/AppData/Local/nvim"
-	Copy-Item -Path "$PSScriptRoot/init.lua" -Destination "$HOME/AppData/Local/nvim/init.lua"
+	Copy-Item -Path "$PSScriptRoot/init.lua.compiled" -Destination "$HOME/AppData/Local/nvim/init.lua"
 }
 else{
 	Create-Dir -dir "$HOME/.config/nvim"
-	Copy-Item -Path "$PSScriptRoot/init.lua" -Destination "$HOME/.config/nvim/init.lua"
+	Copy-Item -Path "$PSScriptRoot/init.lua.compiled" -Destination "$HOME/.config/nvim/init.lua"
 }
 
+# install packer.nvim
+if($IsWindows){
+    &git clone "https://github.com/wbthomason/packer.nvim" "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
+}
+else {
+    &git clone --depth 1 https://github.com/wbthomason/packer.nvim\ ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+}
 
