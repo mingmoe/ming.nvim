@@ -1,4 +1,6 @@
 
+-- set up coc plugin
+vim.cmd [[ let g:coc_global_extensions = ['coc-json', 'coc-git', 'coc-css','coc-tsserver','coc-html'] ]]
 -- config coc.nvim
 -- see https://github.com/neoclide/coc.nvim#example-lua-configuration
 

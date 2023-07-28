@@ -57,4 +57,4 @@ vim.opt.runtimepath:prepend(#RUNTIME_PATH#)
 require("ming-plugins")
 require("ming-coc")
 
-
+vim.g.neovide_input_ime = false
