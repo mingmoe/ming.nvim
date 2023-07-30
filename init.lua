@@ -44,17 +44,20 @@ if vim.g.neovide then
     vim.opt.linespace = 1
     vim.g.neovide_transparency = 0.9
     vim.g.neovide_cursor_vfx_mode = "railgun"
+    vim.g.neovide_input_ime = false
 end
 
 vim.cmd([[
-aunmenu PopUp.How-to\ disable\ mouse
-aunmenu PopUp.-1-
+    aunmenu PopUp.How-to\ disable\ mouse
+    aunmenu PopUp.-1-
 ]])
 
 -- set up plugin
 vim.opt.runtimepath:prepend(#RUNTIME_PATH#)
+vim.g.ming_runtime_path = #RUNTIME_PATH#
 
 require("ming-plugins")
 require("ming-coc")
+require("ming-mapping")
 
-vim.g.neovide_input_ime = false
+

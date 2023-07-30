@@ -23,6 +23,12 @@ packer.startup(function(use)
     end}
     use {'stevearc/dressing.nvim'}
     use {'akinsho/bufferline.nvim', tag = "*", requires = 'nvim-tree/nvim-web-devicons'}
+    use({
+        "L3MON4D3/LuaSnip",
+        -- follow latest release.
+        tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- install jsregexp (optional!:).
+    })
 end)
 
 -- vim.cmd [[ PackerSync ]]
@@ -139,7 +145,21 @@ require("bufferline").setup{
 }
 
 vim.cmd [[
-nnoremap <silent><C-[> :BufferLineCycleNext<CR>
-nnoremap <silent><C-]> :BufferLineCyclePrev<CR>
+nnoremap <silent><C-]> :BufferLineCycleNext<CR>
+nnoremap <silent><C-[> :BufferLineCyclePrev<CR>
  ]]
+
+ -- configure snippets
+vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
+vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
+
+vim.keymap.set({"i", "s"}, "<C-E>", function()
+	if ls.choice_active() then
+		ls.change_choice(1)
+	end
+end, {silent = true})
+
+-- set snippets
+require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.g.ming_runtime_path .. "/snippets/"} })
 
