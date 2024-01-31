@@ -54,7 +54,32 @@ require("lazy").setup({
         build = "make install_jsregexp"
     },
     {
+        'hrsh7th/cmp-nvim-lsp'
+    },
+    {
+        'hrsh7th/cmp-buffer'
+    },
+    {
+        'hrsh7th/cmp-path'
+    },
+    {
+        'hrsh7th/cmp-cmdline'
+    },
+    {
+        "navarasu/onedark.nvim"
+    },
+    {
         "hrsh7th/nvim-cmp"
+    },
+    {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v3.x",
+        dependencies = {
+          "nvim-lua/plenary.nvim",
+          "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+          "MunifTanjim/nui.nvim",
+          "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        }
     }
 })
 
@@ -63,9 +88,22 @@ require("lazy").setup({
 require('lualine').setup(
 {
     options = {
-        theme = 'ayu_light'
+        theme = 'onedark'
     }
 })
+------------------
+-- set up neo tree
+require("neo-tree").setup({})
+vim.keymap.set("n","<leader>tree",function()
+    vim.cmd [[ Neotree ]]
+end, { desc = "open neo-file-tree"})
+
+----------------------
+-- set up theme
+require('onedark').setup {
+    style = 'warm'
+}
+require('onedark').load()
 
 -----------------
 -- set up trouble
@@ -145,6 +183,10 @@ vim.cmd [[ nnoremap <F3> :set hlsearch!<CR> ]]
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
+vim.keymap.set('n', '<leader>fi', builtin.lsp_implementations , {})
+
 
 -- todo comments with telescope
 vim.keymap.set("n","<leader>ft",function()
@@ -154,4 +196,24 @@ end, { desc = "Telescope with todo comments"})
 ------------------
 -- set up convenient function to lsp
 local nvim_lsp = require('lspconfig')
+
+------------------
+-- help command for myself
+vim.api.nvim_create_user_command(
+    "ConfigureProjectHere",
+    function(opts)
+        local capabilities = require('cmp_nvim_lsp').default_capabilities()
+        require("MoeProject").setup({
+                capabilities = capabilities
+        })
+    end,
+    { nargs = 0 })
+
+-------------------------
+-- add a filetype for c++
+vim.filetype.add({
+    extension = {
+        cppm = "cpp"
+    }
+})
 

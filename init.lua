@@ -45,6 +45,9 @@ vim.opt.cursorline = true
 vim.opt.ignorecase = true 
 vim.opt.smartcase = true 
 
+-- use light theme 
+vim.o.background = 'dark'
+
 -- auto save
 vim.opt.updatetime = 300
 
