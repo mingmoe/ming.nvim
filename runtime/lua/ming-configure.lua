@@ -197,7 +197,7 @@ end, { desc = "Telescope with todo comments"})
 -- set up convenient function to lsp
 local nvim_lsp = require('lspconfig')
 
-------------------
+--------------------------
 -- help command for myself
 vim.api.nvim_create_user_command(
     "ConfigureProjectHere",
@@ -206,6 +206,15 @@ vim.api.nvim_create_user_command(
         require("MoeProject").setup({
                 capabilities = capabilities
         })
+        require("MoeProject").update()
+        vim.cmd [[ autocmd BufWrite * UpdateProject ]]
+    end,
+    { nargs = 0 })
+
+vim.api.nvim_create_user_command(
+    "UpdateProject",
+    function(opts)
+        require("MoeProject").update()
     end,
     { nargs = 0 })
 
