@@ -27,7 +27,7 @@ vim.opt.undofile = false
 vim.opt.termguicolors = true 
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-vim.opt.termencoding = "utf-8"
+-- vim.opt.termencoding = "utf-8"
 
 -- have 12/8 lines space
 vim.opt.scrolloff = 12

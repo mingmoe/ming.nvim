@@ -22,6 +22,15 @@ require("lazy").setup({
         "nvim-lua/plenary.nvim"
     },
     {
+      'mrcjkb/rustaceanvim',
+      version = '^4', -- Recommended
+      lazy = false, -- This plugin is already lazy
+    },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate"
+    },
+    {
         'nvim-lualine/lualine.nvim',
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
@@ -130,6 +139,9 @@ snippet = {
   expand = function(args)
     require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
   end,
+  sources = {
+    { name = 'nvim_lsp' }
+  }
 },
 window = {
   -- completion = cmp.config.window.bordered(),
@@ -218,6 +230,20 @@ vim.api.nvim_create_user_command(
     end,
     { nargs = 0 })
 
+vim.api.nvim_create_user_command(
+    "InitMoeNvim",
+    function(opts)
+        vim.cmd [[ Lazy! sync ]]
+        vim.cmd [[ TSInstall rust ]]
+    end,
+    { nargs = 0 })
+vim.api.nvim_create_user_command(
+    "UpdateMoeNvim",
+    function(opts)
+        vim.cmd [[ Lazy! update ]]
+        vim.cmd [[ TSUpdate ]]
+    end,
+    { nargs = 0 })
 -------------------------
 -- add a filetype for c++
 vim.filetype.add({
